@@ -18,7 +18,7 @@ Comment json -- Adding "json" causes ToJSON and FromJSON instances to be derived
     deriving Show
 Guest json
     email Text
---    UniqueGuestEmail email
+    UniqueGuestEmail email
     name Text
     creator UserId
     deriving Eq

@@ -64,7 +64,7 @@ $(function() {
         var newNode = $("<li></li>");
         newNode.text(data.name + " " + data.email);
         console.log(data);
-        $("##{rawJS guestbookListId}").append(newNode);
+        $("##{rawJS guestbookListId}").prepend(newNode);
       },
       error: function (data) {
         console.log("Error creating guestbook entry:");

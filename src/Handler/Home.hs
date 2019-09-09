@@ -95,4 +95,4 @@ guestbookIds =
     )
 
 getAllGuests :: DB [Entity Guest]
-getAllGuests = selectList [] [Asc GuestId]
+getAllGuests = selectList [] [Desc GuestId]
