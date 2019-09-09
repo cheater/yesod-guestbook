@@ -1,0 +1,76 @@
+document.getElementById(#{toJSON aDomId}).innerHTML = "This text was added by the Javascript part of the homepage widget.";
+
+$(function() {
+  $("##{rawJS commentFormId}").submit(function(event) {
+    event.preventDefault();
+
+    var message = $("##{rawJS commentTextareaId}").val();
+    // (Browsers that enforce the "required" attribute on the textarea won't see this alert)
+    if (!message) {
+      alert("Please fill out the comment form first.");
+      return;
+    }
+
+    // Make an AJAX request to the server to create a new comment
+    $.ajax({
+      url: '@{CommentR}',
+      type: 'POST',
+      contentType: "application/json",
+      data: JSON.stringify({
+        message: message,
+      }),
+      success: function (data) {
+        var newNode = $("<li></li>");
+        newNode.text(data.message);
+        console.log(data);
+        $("##{rawJS commentListId}").append(newNode);
+      },
+      error: function (data) {
+        console.log("Error creating comment: " + data);
+      },
+    });
+
+  });
+});
+
+$(function() {
+  $("##{rawJS guestbookFormId}").submit(function(event) {
+    event.preventDefault();
+
+    var guestbookName = $("##{rawJS guestbookNameInputId}").val();
+    // (Browsers that enforce the "required" attribute on the textarea won't see this alert)
+    if (!guestbookName) {
+      alert("Please fill out the guestbook form first.");
+      return;
+    }
+
+    var guestbookEmail = $("##{rawJS guestbookEmailInputId}").val();
+    // (Browsers that enforce the "required" attribute on the textarea won't see this alert)
+    if (!guestbookEmail) {
+      alert("Please fill out the guestbook form first.");
+      return;
+    }
+
+    // Make an AJAX request to the server to create a new comment
+    $.ajax({
+      url: '@{GuestbookR}',
+      type: 'POST',
+      contentType: "application/json",
+      data: JSON.stringify({
+        name: guestbookName,
+        email: guestbookEmail,
+      }),
+      success: function (data) {
+        var newNode = $("<li></li>");
+        newNode.text(data.name + " " + data.email);
+        console.log(data);
+        $("##{rawJS guestbookListId}").append(newNode);
+      },
+      error: function (data) {
+        console.log("Error creating guestbook entry:");
+        console.log(data)
+      },
+    });
+
+  });
+});
