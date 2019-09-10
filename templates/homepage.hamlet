@@ -83,8 +83,8 @@
                    <small>
                        Guests will appear here.
                    <ul ##{guestbookListId}>
-                       $forall guest <- allGuests
-                           <li>#{guestName $ entityVal guest} #{guestEmail $ entityVal guest}
+                       $forall (E.Value name, E.Value email, E.Value creator) <- allGuests
+                           <li>#{name} #{email} (#{creator})
 
     <hr>
 

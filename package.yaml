@@ -36,6 +36,7 @@ dependencies:
 - monad-logger >=0.3 && <0.4
 - fast-logger >=2.2 && <2.5
 - wai-logger >=2.2 && <2.4
+- esqueleto >=3.0 && <3.2
 - file-embed
 - safe
 - unordered-containers

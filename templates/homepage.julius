@@ -29,7 +29,7 @@ $(function() {
       }),
       success: function (data) {
         var newNode = $("<li></li>");
-        newNode.text(data.name + " " + data.email);
+        newNode.text(data.name + " " + data.email + " (" + data.creator + ")");
         console.log(data);
         $("##{rawJS guestbookListId}").prepend(newNode);
       },

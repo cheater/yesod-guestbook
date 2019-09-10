@@ -7,7 +7,9 @@ module Handler.Home where
 
 import Import
 -- import Yesod.Form.Bootstrap3 (BootstrapFormLayout (..), renderBootstrap3)
-import Text.Julius (RawJS (..))
+import           Text.Julius             (RawJS (..))
+import qualified Database.Esqueleto      as E
+import           Database.Esqueleto      ((^.))
 
 -- Define our data that will be used for creating the form.
 data FileForm = FileForm
@@ -94,5 +96,14 @@ guestbookIds =
     , "js-guestbookList"
     )
 
-getAllGuests :: DB [Entity Guest]
-getAllGuests = selectList [] [Desc GuestId]
+getAllGuests :: DB [(E.Value Text, E.Value Text, E.Value Text)]
+getAllGuests =
+      E.select
+    $ E.from $ \(guest `E.InnerJoin` user) -> do
+        E.on $ guest ^. GuestCreator E.==. user ^. UserId
+        E.orderBy [E.desc $ guest ^. GuestId]
+        return
+            ( guest ^. GuestName
+            , guest ^. GuestEmail
+            , user  ^. UserIdent
+            )
