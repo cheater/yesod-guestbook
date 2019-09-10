@@ -161,9 +161,9 @@ instance Yesod App where
         -> Handler AuthResult
     -- Routes not requiring authentication.
     isAuthorized (AuthR _) _ = return Authorized
-    isAuthorized CommentR _ = return Authorized
-    isAuthorized GuestbookR _ = return Authorized -- fixme
-    isAuthorized HomeR _ = return Authorized
+    isAuthorized CommentR _ = isAuthenticated
+    isAuthorized GuestbookR _ = isAuthenticated
+    isAuthorized HomeR _ = isAuthenticated
     isAuthorized FaviconR _ = return Authorized
     isAuthorized RobotsR _ = return Authorized
     isAuthorized (StaticR _) _ = return Authorized
